@@ -12,12 +12,12 @@ const getData = async (api) => {
       let products = data;
       let output = products.map(product => {
         return `<article class='Card'>
-                      <img src='${product.images[1]}' alt='${product.title}'></img>
+                      <img src='${product.images[2]}' alt='${product.title}'></img>
                       <h2>${product.title}
                       <small>${product.price}</small>
                       </h2>
                 </article>`
-      });
+      }).join('');
       let newItem = document.createElement('section');
       newItem.classList.add('Item');
       newItem.innerHTML = output;
@@ -33,14 +33,14 @@ loadData =  async ({increase = 5} = {}) => {
     getData(API + `?offset=${increase}&limit=10`);
   }
   else{
-    intersectionObserver.unobserve($observe)
+    // intersectionObserver.unobserve($observe)
     let parrafo = document.createTextNode('Todos los productos Obtenidos.')
     $app.append(parrafo)
   }
 }
 // loadData({increase: false})
 const intersectionObserver = new IntersectionObserver(entries => {
-  // console.log(entries[0].isIntersecting)
+  console.log(entries)
   let count = Number(localStorage.getItem('pagination'))
     count += 5
     entries.innerHTML = loadData({increase: count})
